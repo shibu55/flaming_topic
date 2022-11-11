@@ -11,8 +11,11 @@ def extract_text_from_csv(file_name):
         reader = csv.reader(csv_file)
         header = next(reader)
         for row in reader:
-            # if int(row[3]) or int(row[4]):
-            text_list.append(row[0]) #取得したい列番号を指定（0始まり）
+            # いいねorリツイートがあるツイートのみ解析
+            if int(row[3]) or int(row[4]):
+                text_list.append(row[0]) #取得したい列番号を指定（0始まり）
+            # 無差別解析
+            # text_list.append(row[0]) #取得したい列番号を指定（0始まり）
 
     # 先頭行(ヘッダー)を削除しておく
     # del text_list[0]
@@ -56,9 +59,15 @@ def search_topic(word, file_name):
     wakati()
 
     sentences = word2vec.LineSentence('./data/wakati.txt')
-    model = word2vec.Word2Vec(sentences, sg=1, vector_size=200, min_count=2, window=15)
+    sg=1
+    vector_size=100
+    min_count=10
+    window=10
+    model = word2vec.Word2Vec(sentences, sg=sg, vector_size=vector_size, min_count=min_count, window=window)
 
+    print('sg = %d, vector_size = %d, min_count = %d, window = %d' % (sg, vector_size, min_count, window))
     print('(word, similarity)')
+
     for i in model.wv.most_similar(word):
         print(i)
 

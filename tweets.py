@@ -50,10 +50,14 @@ def generate_csv(word, file_name):
 
     first_flg = True
 
+    now = datetime.datetime.now()
+    start_time = now  - datetime.timedelta(days = 2) - datetime.timedelta(hours = 9)
+    end_time = start_time + datetime.timedelta(days = 1)
+
     QUERY = word + ' -is:retweet'
 
     mc = make_csv(file_name)
-    for i in range(300):
+    for i in range(200):
         #1回目のリクエストと2回目以降のリクエストパラメータが違うためフラグ管理
 
         # print("first_flg: " + str(first_flg))
@@ -61,12 +65,12 @@ def generate_csv(word, file_name):
         MAX_RESULTS = 100
         if first_flg == True:
             #1回目リクエスト
-            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS)
+            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS, start_time = start_time, end_time = end_time)
             #初回フラグを落とす
             first_flg = False
         else:
             #2回目移行リクエスト
-            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS, next_token=next_token)
+            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS, start_time = start_time, end_time = end_time, next_token=next_token)
 
         tweets_data = tweets.data
         if tweets_data != None:
@@ -80,5 +84,6 @@ def generate_csv(word, file_name):
             # print("next_token: " + next_token)
         except KeyError:
             #next_tokenが取得できない（最後のリクエスト）の場合はループ終了
+            print(i)
             print("最後のページに到達しました")
             break
