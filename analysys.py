@@ -6,16 +6,20 @@ import csv
 import re
 
 def extract_text_from_csv(file_name):
-    text_list = [] 
+    text_list = []
+    is_filtering = False
     with open(file_name) as csv_file:
         reader = csv.reader(csv_file)
         header = next(reader)
-        for row in reader:
-            # いいねorリツイートがあるツイートのみ解析
-            if int(row[3]) or int(row[4]):
+        if is_filtering:
+            for row in reader:
+                # いいねorリツイートがあるツイートのみ解析
+                if int(row[3]) or int(row[4]):
+                    text_list.append(row[0]) #取得したい列番号を指定（0始まり）
+        else:
+            for row in reader:
+                # 無差別解析
                 text_list.append(row[0]) #取得したい列番号を指定（0始まり）
-            # 無差別解析
-            # text_list.append(row[0]) #取得したい列番号を指定（0始まり）
 
     # 先頭行(ヘッダー)を削除しておく
     # del text_list[0]
