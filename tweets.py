@@ -4,7 +4,7 @@ import csv
 import config
 
 
-class make_csv:
+class csv_file:
     def __init__(self,filename):
         self.file='./data/'+filename
         # csvファイルの作成とヘッダーの書き込み
@@ -37,7 +37,7 @@ class make_csv:
             writer.writerow(body) # を書き込む
 
 
-def generate_csv(word, file_name):
+def generate_csv(word, file_name, start_time, end_time):
     API_KEY = config.API_KEY
     API_KEY_SECRET = config.API_KEY_SECRET
     BEARER_TOKEN = config.BEARER_TOKEN
@@ -50,14 +50,10 @@ def generate_csv(word, file_name):
 
     first_flg = True
 
-    now = datetime.datetime.now()
-    start_time = now  - datetime.timedelta(days = 2) - datetime.timedelta(hours = 9)
-    end_time = start_time + datetime.timedelta(days = 1)
-
     QUERY = word + ' -is:retweet'
 
-    mc = make_csv(file_name)
-    for i in range(200):
+    cf = csv_file(file_name)
+    for i in range(450):
         #1回目のリクエストと2回目以降のリクエストパラメータが違うためフラグ管理
 
         # print("first_flg: " + str(first_flg))
@@ -65,17 +61,28 @@ def generate_csv(word, file_name):
         MAX_RESULTS = 100
         if first_flg == True:
             #1回目リクエスト
-            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS, start_time = start_time, end_time = end_time)
+            tweets = client.search_recent_tweets(
+                query = QUERY,
+                tweet_fields = ["public_metrics","created_at"],
+                max_results = MAX_RESULTS,
+                # start_time = start_time, end_time = end_time
+            )
             #初回フラグを落とす
             first_flg = False
         else:
             #2回目移行リクエスト
-            tweets = client.search_recent_tweets(query = QUERY, tweet_fields = ["public_metrics","created_at"], max_results = MAX_RESULTS, start_time = start_time, end_time = end_time, next_token=next_token)
+            tweets = client.search_recent_tweets(
+                query = QUERY,
+                tweet_fields = ["public_metrics","created_at"],
+                max_results = MAX_RESULTS,
+                # start_time = start_time, end_time = end_time,
+                next_token=next_token
+            )
 
         tweets_data = tweets.data
         if tweets_data != None:
             for tweet in tweets_data:
-                mc.make(tweet)
+                cf.make(tweet)
         else:
             print("該当がありませんでした")
 

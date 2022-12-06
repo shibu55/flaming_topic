@@ -1,4 +1,5 @@
 from gensim.models import word2vec
+from wordcloud import WordCloud
 import sys
 import logging
 import MeCab
@@ -61,6 +62,22 @@ def wakati():
 def search_topic(word, file_name):
     extract_text_from_csv(file_name)
     wakati()
+    # with open('./data/wakati.txt') as f:
+    #     mecab = MeCab.Tagger()
+    #     text = f.read()
+    #     nodes = mecab.parseToNode(text)
+    #     print(nodes)
+    #     s = []
+    #     while nodes:
+    #         if nodes.feature[:2] == '名詞':
+    #             s.append(nodes.surface)
+    #         nodes = nodes.next
+    #     wc = WordCloud(width=480, height=320, background_color="white",
+    #                 stopwords={"もの","これ","ため","それ","ところ","よう"},
+    #                 font_path="/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc")
+    #     wc.generate(" ".join(s))
+    #     wc.to_file('wc3.png')
+
 
     sentences = word2vec.LineSentence('./data/wakati.txt')
     sg=1
