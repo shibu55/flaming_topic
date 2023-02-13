@@ -65,7 +65,7 @@ def generate_csv(word, file_name, start_time, end_time):
                 query = QUERY,
                 tweet_fields = ["public_metrics","created_at"],
                 max_results = MAX_RESULTS,
-                # start_time = start_time, end_time = end_time
+                start_time = start_time, end_time = end_time
             )
             #初回フラグを落とす
             first_flg = False
@@ -75,7 +75,7 @@ def generate_csv(word, file_name, start_time, end_time):
                 query = QUERY,
                 tweet_fields = ["public_metrics","created_at"],
                 max_results = MAX_RESULTS,
-                # start_time = start_time, end_time = end_time,
+                start_time = start_time, end_time = end_time,
                 next_token=next_token
             )
 
