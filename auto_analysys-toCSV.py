@@ -9,7 +9,6 @@ import re
 import math
 import requests
 from bs4 import BeautifulSoup
-import csv
 import datetime
 
 class csv_file:

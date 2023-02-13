@@ -1,8 +1,6 @@
 # coding:utf-8
 from gensim.models import word2vec
-from wordcloud import WordCloud
 import sys
-import logging
 import MeCab
 import collections
 import csv

@@ -41,6 +41,30 @@ urllib3            1.26.12
 wordcloud          1.8.2.2
 ```
 
+## 環境構築手順
+python（3.9.13）のインストール
+
+mecabのインストール
+
+ipadic辞書のインストール
+
+mecab-ipadic-NEologd辞書のインストール
+
+辞書インストール後コードのMeCab.Tagger部分の引数のpathを書き換える
+
+twitterAPIのアクセスキー取得
+
+APIのアクセスキー取得後configファイルを作成し設定する
+
+↓config.py
+```
+API_KEY='API_KEY'
+API_KEY_SECRET='API_KEY_SECRET'
+BEARER_TOKEN='BEARER_TOKEN'
+ACCESS_TOKEN='ACCESS_TOKEN'
+ACCSESS_TOKEN_SECRET='ACCSESS_TOKEN_SECRET'
+```
+
 ## 作成したファイル
 config.py
 - ここにTwitterAPIで使用するkeyなどを記載

@@ -1,5 +1,4 @@
 # coding:utf-8
-import time
 from gensim.models import word2vec
 import sys
 import MeCab
@@ -9,8 +8,6 @@ import re
 import math
 import requests
 from bs4 import BeautifulSoup
-import csv
-import datetime
 
 
 def extract_text_from_csv(file_name, process):
