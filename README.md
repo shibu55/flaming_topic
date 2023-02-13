@@ -1,4 +1,4 @@
-環境
+## 環境
 python -V                                                                                  [main]
 Python 3.9.13
 
@@ -39,19 +39,19 @@ typing_extensions  4.3.0
 urllib3            1.26.12
 wordcloud          1.8.2.2
 
-作成したファイル
-config.py
+## 作成したファイル
+- config.py
 ここにTwitterAPIで使用するkeyなどを記載
 
-tweets.py
+- tweets.py
 main.py実行時にツイートを収集してCSVに記述する部分の処理
 
-python analysys.py
+- python analysys.py
 ファイル名を引数に取ることで個別のDCG計算可能
 
-python main.py
+- python main.py
 ツイート収集→タイトル入力でDCG計算
 
-python auto_analysys.py
+- python auto_analysys-toCSV.py
 コード内に自動でDCG値を算出したい日付のcsvファイルとタイトル群を複数入れることで自動実行可能
 Word2Vecのパラメータを変動した結果をCSVファイルへ出力可能
