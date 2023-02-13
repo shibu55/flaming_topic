@@ -1,11 +1,4 @@
 __pycache__
 data
-entity_vector
-hottoSNS-bert
-search_words
-venv
 .DS_Store
-exe.py
-ja-wiki.py
 config.py
-wc3.png
